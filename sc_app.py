@@ -15,4 +15,4 @@ def index():
 # main loop
 if __name__ == "__main__":
     # start web server
-    app.run(host="127.0.0.1", port=8090, debug=True)
+    app.run(host="127.0.0.1", port=8080, debug=True)
