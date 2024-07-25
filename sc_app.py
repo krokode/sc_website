@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "Hello from Serge webapp"
+    return "Hello from Serge flask webapp"
 
 
 # main loop
