@@ -1,5 +1,5 @@
 # packages
-from flask import Flask
+from flask import Flask, render_template, render_template_string
 
 # web app instance
 app = Flask(__name__)
@@ -9,8 +9,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "Hello from Serge flask webapp"
+    return render_template_string('''
+    <h1 align = "center">Hello from Serge flask webapp</h1>
+    ''')
 
+
+""" 
+    render_template("index.html")
+"""
 
 # main loop
 if __name__ == "__main__":
