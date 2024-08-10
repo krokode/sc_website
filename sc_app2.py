@@ -1,15 +1,13 @@
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response, request, jsonify
 import cv2
 import requests
 
 app = Flask(__name__)
 
-# Initialize the camera
-# print(cv2.getBuildInformation())
-camera = cv2.VideoCapture(0)
-
 
 def generate_frames():
+    # Initialize the camera
+    camera = cv2.VideoCapture(0)
     while True:
         success, frame = camera.read()  # Read the camera frame
         if not success:
@@ -22,6 +20,12 @@ def generate_frames():
             # Yield the frame to the browser
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    # Return the camera feed
+    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 def get_location(ip):
@@ -56,11 +60,13 @@ def index():
     return render_template('index2.html', location=location_info)
 
 
-@app.route('/video_feed')
-def video_feed():
-    # Return the camera feed
-    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
+""" @app.route('/get_location', methods=['POST'])
+def get_geolocation():
+    data = request.json
+    latitude = data.get('latitude')
+    longitude = data.get('longitude')
+    return jsonify(status="success", latitude=latitude, longitude=longitude)
+ """
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=5000)

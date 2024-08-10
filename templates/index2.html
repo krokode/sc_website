@@ -9,6 +9,9 @@
 
 <body>
 
+   <h1>Live Camera Feed</h1>
+   <img src="{{ url_for('video_feed') }}" width="640" height="480">
+
    <h1>User IP and Location Information</h1>
    {% if location %}
    <ul>
@@ -25,8 +28,48 @@
    <p>Could not retrieve location information.</p>
    {% endif %}
 
-   <h1>Live Camera Feed</h1>
-   <img src="{{ url_for('video_feed') }}" width="640" height="480">
+
+   <!-- <h1>User Geolocation</h1>
+   <p id="location">Fetching location...</p>
+
+   <script>
+      // Function to send the geolocation data to the Flask server
+      function sendLocationToServer(latitude, longitude) {
+         fetch('/get_geolocation', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+               latitude: latitude,
+               longitude: longitude
+            })
+         })
+            .then(response => response.json())
+            .then(data => {
+               document.getElementById('location').textContent =
+                  `Latitude: ${latitude}, Longitude: ${longitude}`;
+            })
+            .catch(error => console.error('Error sending location:', error));
+      }
+
+      // Get the user's location
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function (position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            sendLocationToServer(latitude, longitude);
+         }, function (error) {
+            document.getElementById('location').textContent =
+               'Unable to retrieve location';
+            console.error('Geolocation error:', error);
+         });
+      } else {
+         document.getElementById('location').textContent =
+            'Geolocation is not supported by this browser.';
+      }
+   </script>
+ -->
 
 </body>
 
