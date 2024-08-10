@@ -8,9 +8,25 @@
 </head>
 
 <body>
-   
+
    <h1>Live Camera Feed</h1>
    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+
+   <h1>User IP and Location Information</h1>
+   {% if location %}
+   <ul>
+      <li><strong>IP Address:</strong> {{ location.ip }}</li>
+      <li><strong>Country:</strong> {{ location.country }}</li>
+      <li><strong>Region:</strong> {{ location.region }}</li>
+      <li><strong>City:</strong> {{ location.city }}</li>
+      <li><strong>ZIP:</strong> {{ location.zip }}</li>
+      <li><strong>Latitude:</strong> {{ location.lat }}</li>
+      <li><strong>Longitude:</strong> {{ location.lon }}</li>
+      <li><strong>ISP:</strong> {{ location.isp }}</li>
+   </ul>
+   {% else %}
+   <p>Could not retrieve location information.</p>
+   {% endif %}
 
 </body>
 

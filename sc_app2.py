@@ -1,5 +1,6 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 import cv2
+import requests
 
 app = Flask(__name__)
 
@@ -23,10 +24,31 @@ def generate_frames():
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
+def get_location(ip):
+    try:
+        # Using a public API to get location details based on IP
+        response = requests.get(f'http://ip-api.com/json/{ip}')
+        data = response.json()
+        return {
+            "ip": ip,
+            "country": data.get("country"),
+            "region": data.get("regionName"),
+            "city": data.get("city"),
+            "zip": data.get("zip"),
+            "lat": data.get("lat"),
+            "lon": data.get("lon"),
+            "isp": data.get("isp"),
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+
 @app.route('/')
 def index():
     # Render the HTML template
-    return render_template('index2.html')
+    user_ip = request.remote_addr  # Get the user's IP address
+    location_info = get_location(user_ip)  # Get the location information
+    return render_template('index2.html', location=location_info)
 
 
 @app.route('/video_feed')
