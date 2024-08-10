@@ -9,9 +9,6 @@
 
 <body>
 
-   <h1>Live Camera Feed</h1>
-   <img src="{{ url_for('video_feed') }}" width="640" height="480">
-
    <h1>User IP and Location Information</h1>
    {% if location %}
    <ul>
@@ -27,6 +24,9 @@
    {% else %}
    <p>Could not retrieve location information.</p>
    {% endif %}
+
+   <h1>Live Camera Feed</h1>
+   <img src="{{ url_for('video_feed') }}" width="640" height="480">
 
 </body>
 
