@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 def generate_frames():
     # Initialize the camera
-    camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(1)
     while True:
         success, frame = camera.read()  # Read the camera frame
         if not success:
@@ -28,7 +28,7 @@ def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-def get_location(ip):
+""" def get_location(ip):
     try:
         # Using a public API to get location details based on IP
         response = requests.get(f'http://ip-api.com/json/{ip}')
@@ -44,10 +44,28 @@ def get_location(ip):
             "isp": data.get("isp"),
         }
     except Exception as e:
+        return {"error": str(e)} """
+
+
+def get_ip_based_geolocation():
+    try:
+        response = requests.get('https://ipinfo.io/json')
+        data = response.json()
+        return {
+            "ip": data.get("ip"),
+            "hostname": data.get("hostname"),
+            "city": data.get("city"),
+            "region": data.get("region"),
+            "country": data.get("country"),
+            # Latitude and Longitude in "lat,lon" format
+            "loc": data.get("loc"),
+            "organization": data.get("org")
+        }
+    except Exception as e:
         return {"error": str(e)}
 
 
-@app.route('/')
+@ app.route('/')
 def index():
     # Render the HTML template
     # user_ip = request.remote_addr  # Get the user's IP address
@@ -55,8 +73,10 @@ def index():
     """  headers_list = request.headers.getlist("X-Forwarded-For")
     user_ip = headers_list[0] if headers_list else request.remote_addr """
 
-    user_ip = request.access_route[-1]
-    location_info = get_location(user_ip)  # Get the location information
+    # user_ip = request.access_route[-1]
+    # location_info = get_location(user_ip)  # Get the location information
+    location_info = get_ip_based_geolocation()
+
     return render_template('index2.html', location=location_info)
 
 

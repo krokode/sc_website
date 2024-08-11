@@ -19,10 +19,13 @@
       <li><strong>Country:</strong> {{ location.country }}</li>
       <li><strong>Region:</strong> {{ location.region }}</li>
       <li><strong>City:</strong> {{ location.city }}</li>
-      <li><strong>ZIP:</strong> {{ location.zip }}</li>
-      <li><strong>Latitude:</strong> {{ location.lat }}</li>
-      <li><strong>Longitude:</strong> {{ location.lon }}</li>
-      <li><strong>ISP:</strong> {{ location.isp }}</li>
+      <li><strong>Hostname:</strong> {{ location.hostname }}</li>
+      <!-- <li><strong>ZIP:</strong> {{ location.zip }}</li> -->
+      <!-- <li><strong>Latitude:</strong> {{ location.lat }}</li> -->
+      <!-- <li><strong>Longitude:</strong> {{ location.lon }}</li> -->
+      <!-- <li><strong>ISP:</strong> {{ location.isp }}</li> -->
+      <li><strong>Organization:</strong> {{ location.organization }}</li>
+      <li><strong>Location (Longitude, Latitude):</strong> {{ location.loc}}</li>
    </ul>
    {% else %}
    <p>Could not retrieve location information.</p>

@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index_html():
-    return render_template("index1.html")
+    return render_template("index.html")
 
 # update remote webcam view frame
 
