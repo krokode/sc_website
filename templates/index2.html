@@ -45,7 +45,8 @@
 
 
    <h1>User Geolocation</h1>
-   <p id="location">Fetching location...</p>
+   <p id="location"></p>
+   <p id="coordinates"> {{latitude}} {{longitude}}</p>
 
    <script>
       // Function to send the geolocation data to the Flask server
@@ -62,7 +63,7 @@
          })
             .then(response => response.json())
             .then(data => {
-               document.getElementById('location').textContent =
+               document.getElementById('coordinates').textContent =
                   `Latitude: ${latitude}, Longitude: ${longitude}`;
             })
             .catch(error => console.error('Error sending location:', error));
