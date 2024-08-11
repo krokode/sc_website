@@ -25,19 +25,19 @@
 <body>
 
    <h1>User IP and Location Information</h1>
-   {% if location %}
+   {% if iplocation %}
    <ul>
-      <li><strong>IP Address:</strong> {{ location.ip }}</li>
-      <li><strong>Country:</strong> {{ location.country }}</li>
-      <li><strong>Region:</strong> {{ location.region }}</li>
-      <li><strong>City:</strong> {{ location.city }}</li>
-      <!-- <li><strong>Hostname:</strong> {{ location.hostname }}</li> -->
-      <!-- <li><strong>ZIP:</strong> {{ location.zip }}</li> -->
-      <!-- <li><strong>Latitude:</strong> {{ location.lat }}</li> -->
-      <!-- <li><strong>Longitude:</strong> {{ location.lon }}</li> -->
-      <!-- <li><strong>ISP:</strong> {{ location.isp }}</li> -->
-      <!-- <li><strong>Organization:</strong> {{ location.organization }}</li> -->
-      <li><strong>Location (Longitude, Latitude):</strong> {{ location.loc}}</li>
+      <li><strong>IP Address:</strong> {{ iplocation.ip }}</li>
+      <li><strong>Country:</strong> {{ iplocation.country }}</li>
+      <li><strong>Region:</strong> {{ iplocation.region }}</li>
+      <li><strong>City:</strong> {{ iplocation.city }}</li>
+      <!-- <li><strong>Hostname:</strong> {{ iplocation.hostname }}</li> -->
+      <!-- <li><strong>ZIP:</strong> {{ iplocation.zip }}</li> -->
+      <!-- <li><strong>Latitude:</strong> {{ iplocation.lat }}</li> -->
+      <!-- <li><strong>Longitude:</strong> {{ iplocation.lon }}</li> -->
+      <!-- <li><strong>ISP:</strong> {{ iplocation.isp }}</li> -->
+      <!-- <li><strong>Organization:</strong> {{ iplocation.organization }}</li> -->
+      <li><strong>Location (Longitude, Latitude):</strong> {{ iplocation.loc}}</li>
    </ul>
    {% else %}
    <p>Could not retrieve location information.</p>

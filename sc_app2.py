@@ -76,7 +76,7 @@ def index():
     # location_info = get_location(user_ip)  # Get the location information
     location_info = get_ip_based_geolocation(user_ip)
 
-    return render_template('index2.html', location=location_info)
+    return render_template('index2.html', iplocation=location_info)
 
 
 @app.route('/get_location', methods=['POST'])
