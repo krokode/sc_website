@@ -4,13 +4,25 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Live Camera</title>
+   <title>Serge Frejlich</title>
 </head>
 
-<body>
+<style>
+   #container {
+      margin: 0px auto;
+      width: 500px;
+      height: 375px;
+      border: 10px #333 solid;
+   }
 
-   <h1>Live Camera Feed</h1>
-   <img src="{{ url_for('video_feed') }}" width="640" height="480">
+   #videoElement {
+      width: 500px;
+      height: 375px;
+      background-color: #666;
+   }
+</style>
+
+<body>
 
    <h1>User IP and Location Information</h1>
    {% if location %}
@@ -19,12 +31,12 @@
       <li><strong>Country:</strong> {{ location.country }}</li>
       <li><strong>Region:</strong> {{ location.region }}</li>
       <li><strong>City:</strong> {{ location.city }}</li>
-      <li><strong>Hostname:</strong> {{ location.hostname }}</li>
+      <!-- <li><strong>Hostname:</strong> {{ location.hostname }}</li> -->
       <!-- <li><strong>ZIP:</strong> {{ location.zip }}</li> -->
       <!-- <li><strong>Latitude:</strong> {{ location.lat }}</li> -->
       <!-- <li><strong>Longitude:</strong> {{ location.lon }}</li> -->
       <!-- <li><strong>ISP:</strong> {{ location.isp }}</li> -->
-      <li><strong>Organization:</strong> {{ location.organization }}</li>
+      <!-- <li><strong>Organization:</strong> {{ location.organization }}</li> -->
       <li><strong>Location (Longitude, Latitude):</strong> {{ location.loc}}</li>
    </ul>
    {% else %}
@@ -32,7 +44,7 @@
    {% endif %}
 
 
-   <!-- <h1>User Geolocation</h1>
+   <h1>User Geolocation</h1>
    <p id="location">Fetching location...</p>
 
    <script>
@@ -72,8 +84,29 @@
             'Geolocation is not supported by this browser.';
       }
    </script>
- -->
 
+   <div>
+      <h1 align="center">Front Camera</h1>
+   </div>
+   <div id="container">
+      <video autoplay="true" id="videoElement"></video>
+   </div>
+   <script>
+      var video = document.querySelector("#videoElement");
+
+      if (navigator.mediaDevices.getUserMedia) {
+         navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+               video.srcObject = stream;
+            })
+            .catch(function (error) {
+               alert("Your device has no camera or Something went wrong!");
+            });
+      }
+   </script>
+
+   <h1>Back Camera</h1>
+   <img src="{{ url_for('video_feed') }}" width="640" height="480">
 </body>
 
 </html>
