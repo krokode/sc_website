@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 def generate_frames():
     # Initialize the camera
-    camera = cv2.VideoCapture(1)
+    camera = cv2.VideoCapture(-1)
     while True:
         success, frame = camera.read()  # Read the camera frame
         if not success:
@@ -47,9 +47,9 @@ def video_feed():
         return {"error": str(e)} """
 
 
-def get_ip_based_geolocation():
+def get_ip_based_geolocation(ip):
     try:
-        response = requests.get('https://ipinfo.io/json')
+        response = requests.get(f'https://ipinfo.io/{ip}/json')
         data = response.json()
         return {
             "ip": data.get("ip"),
@@ -73,9 +73,9 @@ def index():
     """  headers_list = request.headers.getlist("X-Forwarded-For")
     user_ip = headers_list[0] if headers_list else request.remote_addr """
 
-    # user_ip = request.access_route[-1]
+    user_ip = request.access_route[-1]
     # location_info = get_location(user_ip)  # Get the location information
-    location_info = get_ip_based_geolocation()
+    location_info = get_ip_based_geolocation(user_ip)
 
     return render_template('index2.html', location=location_info)
 
