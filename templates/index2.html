@@ -45,9 +45,33 @@
 
 
    <h1>User Geolocation</h1>
-   <p id="location"></p>
-   <p id="coordinates"> {{latitude}} {{longitude}}</p>
+   <p id="location">Fetching location information ...</p>
 
+
+   <div>
+      <h1 align="center">Front Camera</h1>
+   </div>
+   <div id="container">
+      <video autoplay="true" id="videoElement"></video>
+   </div>
+   <div>
+      <h1 align="center">Backdoor Camera</h1>
+      <img src="{{ url_for('video_feed') }}" width="640" height="480">
+   </div>
+
+   <script>
+      var video = document.querySelector("#videoElement");
+
+      if (navigator.mediaDevices.getUserMedia) {
+         navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+               video.srcObject = stream;
+            })
+            .catch(function (error) {
+               alert("Your device has no camera or Something went wrong!");
+            });
+      }
+   </script>
    <script>
       // Function to send the geolocation data to the Flask server
       function sendLocationToServer(latitude, longitude) {
@@ -86,28 +110,7 @@
       }
    </script>
 
-   <div>
-      <h1 align="center">Front Camera</h1>
-   </div>
-   <div id="container">
-      <video autoplay="true" id="videoElement"></video>
-   </div>
-   <script>
-      var video = document.querySelector("#videoElement");
 
-      if (navigator.mediaDevices.getUserMedia) {
-         navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-               video.srcObject = stream;
-            })
-            .catch(function (error) {
-               alert("Your device has no camera or Something went wrong!");
-            });
-      }
-   </script>
-
-   <h1>Back Camera</h1>
-   <img src="{{ url_for('video_feed') }}" width="640" height="480">
 </body>
 
 </html>

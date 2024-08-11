@@ -68,11 +68,11 @@ def get_ip_based_geolocation(ip):
 @ app.route('/')
 def index():
     # Render the HTML template
-    user_ip = request.remote_addr  # Get the user's IP address
+    # user_ip = request.remote_addr  # Get the user's IP address
     # user_ip = request.headers['X-Forwarded-For']
     """  headers_list = request.headers.getlist("X-Forwarded-For")
     user_ip = headers_list[0] if headers_list else request.remote_addr """
-    # user_ip = request.access_route[-1]
+    user_ip = request.access_route[-1]
     # location_info = get_location(user_ip)  # Get the location information
     location_info = get_ip_based_geolocation(user_ip)
 
