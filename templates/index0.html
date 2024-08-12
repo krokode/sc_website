@@ -9,6 +9,24 @@
 
 <body>
    <p>Flask application</p>
+   <h1>User IP and IPLocation Information</h1>
+   <div>
+      {% if location %}
+      {% for i in range(location|length) %}
+      <ul id="location-{{ i }}" class="location-list location-{{ i }}">
+         <li><strong>IP Address:</strong> {{ location[i].ip }}</li>
+         <li><strong>Country:</strong> {{ location[i].country }}</li>
+         <li><strong>Region:</strong> {{ location[i].region }}</li>
+         <li><strong>City:</strong> {{ location[i].city }}</li>
+         <li><strong>Location (Longitude, Latitude):</strong> {{ location[i].loc }}</li>
+         <li><strong>IP Privacy:</strong> {{ location[i].privacy }}</li>
+      </ul>
+      {% endfor %}
+      {% else %}
+      <p>Could not retrieve location information.</p>
+      {% endif %}
+   </div>
+
 </body>
 
 </html>
