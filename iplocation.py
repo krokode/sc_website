@@ -1,8 +1,8 @@
 import requests
 
 
-def get_ip_based_geolocation():
-    response = requests.get('https://ipinfo.io/json')
+def get_ip_based_geolocation(ip):
+    response = requests.get(f'https://ipinfo.io/{ip}/json')
     data = response.json()
     return {
         "ip": data.get("ip"),
